@@ -1,19 +1,19 @@
-streamlit
-requests
-beautifulsoup4
-faiss-cpu
+streamlit==1.56.0
+requests==2.33.1
+beautifulsoup4==4.14.3
+faiss-cpu==1.13.2
 
-langchain
-langchain-core
-langchain-community
-langchain-openai
-langchain-text-splitters
+langchain==1.2.15
+langchain-core==1.2.26
+langchain-community==0.4.1
+langchain-openai==1.1.12
+langchain-text-splitters==1.1.1
 
-openai
-tiktoken
-unstructured
-watchdog
+openai==2.30.0
+tiktoken==0.12.0
+unstructured==0.22.16
+watchdog==6.0.0
 
-pinecone
-langchain-pinecone
-python-dotenv
+pinecone==7.3.0
+langchain-pinecone==0.2.13
+python-dotenv==1.2.2
