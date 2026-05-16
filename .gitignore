@@ -1,0 +1,7 @@
+.venvGPT/
+.env
+
+/vscode/
+
+__pycache__/
+
