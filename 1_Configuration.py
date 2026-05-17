@@ -1,5 +1,5 @@
 import streamlit as st
-from utils_1 import start_crawling,set_openai_api_key,generate_pinecone_database
+from utils import start_crawling, set_openai_api_key, generate_database, generate_pinecone_database
 
 
 st.set_page_config(page_title="Scrape ton site web", page_icon="🖥", layout="centered")

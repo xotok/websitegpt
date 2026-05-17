@@ -5,18 +5,16 @@ from urllib.parse import urljoin, urlparse
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
-
+from langchain_community.vectorstores import FAISS
 
 from operator import itemgetter
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.vectorstores import FAISS
 
 from langchain_pinecone import PineconeVectorStore
 from dotenv import load_dotenv
 from langchain_core.documents import Document
-
 
 import streamlit as st
 import os
@@ -32,7 +30,6 @@ def set_openai_api_key():
   
     os.environ["OPENAI_API_KEY"] = st.session_state.openai_api_key
         
-
 def start_crawling(url, prefix, depth):
     visited_urls = set()
     wanted_urls = set()
@@ -71,8 +68,7 @@ def start_crawling(url, prefix, depth):
         
     crawl_urls(url, prefix, depth)
     return list(sorted(wanted_urls))
-    
-    
+        
 def generate_database(urls):
     # 1 - Récupérer le contenu textuel des pages web
     loaders = WebBaseLoader(
@@ -147,13 +143,11 @@ def generate_pinecone_database(urls):
     vectorstore = PineconeVectorStore.from_documents( 
                                                      documents=docs,
                                                      embedding=embeddings,
-                                                     index_name="websitegpt"
+                                                     index_name="scrstgpt"
                                                      )
 
     return vectorstore
-    
-
-  
+      
 def init_session_state():
     if "messages" not in st.session_state:
         st.session_state.messages = [
@@ -166,7 +160,6 @@ def init_session_state():
         
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
-
 
 @st.cache_resource
 def load_database(index_path="faiss_index_pinecone"):
@@ -181,16 +174,14 @@ def load_database(index_path="faiss_index_pinecone"):
     
     return db
 
-
 @st.cache_resource
 def load_pinecone_database():
     embeddings = OpenAIEmbeddings() 
     
     return PineconeVectorStore.from_existing_index( 
-                                                   index_name="websitegpt",
+                                                   index_name="scrstgpt",
                                                    embedding=embeddings
                                                    )
-
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
@@ -237,7 +228,6 @@ def create_chain(_db):
              )
     
     return chain
-
     
 def reset_conversation():
     st.session_state.messages = [
@@ -249,8 +239,7 @@ def reset_conversation():
         ]
         
     st.session_state.chat_history = []
-    
-                                                   
+                                                       
 def get_conversation_stats():
     messages = st.session_state.get("messages", [])
     nb_questions = len([m for m in messages if m["role"] == "user"])
