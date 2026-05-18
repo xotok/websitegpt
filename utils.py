@@ -143,7 +143,7 @@ def generate_pinecone_database(urls):
     vectorstore = PineconeVectorStore.from_documents( 
                                                      documents=docs,
                                                      embedding=embeddings,
-                                                     index_name="scrstgpt"
+                                                     index_name="websitegpt"
                                                      )
 
     return vectorstore
@@ -179,7 +179,7 @@ def load_pinecone_database():
     embeddings = OpenAIEmbeddings() 
     
     return PineconeVectorStore.from_existing_index( 
-                                                   index_name="scrstgpt",
+                                                   index_name="websitegpt",
                                                    embedding=embeddings
                                                    )
 

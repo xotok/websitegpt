@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage, AIMessage
 import time
-from utils import init_session_state, reset_conversation, get_conversation_stats, set_openai_api_key, load_pinecone_database, create_chain
+from utils import init_session_state, reset_conversation, get_conversation_stats, set_openai_api_key, load_pinecone_database, create_chain, load_database
 
 
 st.set_page_config(
